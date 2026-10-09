@@ -22,7 +22,7 @@ jobs:
             "username": "Trading Reminders",
             "embeds": [{
               "title": "📓 Weekly review",
-              "description": "Post your journal dashboard screenshot in <#${{ vars.JOURNAL_CHANNEL_ID }}> and react ✅ once you've posted yours.\n\nAnswer two questions:\n1️⃣ Did you follow the plan on every trade?\n2️⃣ What's ONE adjustment for next week?\n\n🟢 Green journal → buy the eval.\n🔴 Red journal → another week of sim.",
+              "description": "Post your journal dashboard screenshot in <#${{ vars.JOURNAL_CHANNEL_ID || secrets.JOURNAL_CHANNEL_ID }}> and react ✅ once you've posted yours.\n\nAnswer two questions:\n1️⃣ Did you follow the plan on every trade?\n2️⃣ What's ONE adjustment for next week?\n\n🟢 Green journal → buy the eval.\n🔴 Red journal → another week of sim.",
               "color": 3447003
             }]
           }
