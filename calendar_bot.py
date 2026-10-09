@@ -106,6 +106,11 @@ def main():
     if not webhook_url:
         print("DISCORD_WEBHOOK_URL not set - skipping.")
         return 0
+    if os.environ.get("TEST_ALERT", "").lower() == "true":
+        fake = {"title": "Test alert - bot is working", "forecast": "", "previous": ""}
+        post_to_discord(webhook_url, fake, datetime.now(ET_ZONE))
+        print("Test alert posted.")
+        return 0
     try:
         events = fetch_events()
     except Exception as exc:  # feed hiccups shouldn't fail the cron loudly
