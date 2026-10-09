@@ -3,7 +3,13 @@ name: Econ calendar alerts
 "on":
   schedule:
     - cron: "*/5 * * * *"   # every 5 minutes
-  workflow_dispatch:        # allows a manual test run from the Actions tab
+  workflow_dispatch:        # manual runs from the Actions tab
+    inputs:
+      test_alert:
+        description: "Post a test alert to Discord"
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   check:
@@ -21,6 +27,7 @@ jobs:
         run: python calendar_bot.py
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TEST_ALERT: ${{ inputs.test_alert }}
 
       - name: Save posted-event state
         run: |
