@@ -1,0 +1,31 @@
+name: Pre-market checklist
+
+# Posts the pre-market checklist to Discord on weekday mornings.
+# NOTE: cron runs on UTC. 9:15 AM EDT = 13:15 UTC. When daylight saving ends
+# (Nov 1, 2026), 9:15 AM EST = 14:15 UTC — change 13 to 14 below.
+
+"on":
+  schedule:
+    - cron: "15 13 * * 1-5"   # Mon-Fri 9:15 AM Eastern (EDT)
+  workflow_dispatch:          # manual test from the Actions tab
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post checklist to Discord
+        run: |
+          curl -s -X POST "$DISCORD_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d @- <<'EOF'
+          {
+            "username": "Trading Reminders",
+            "embeds": [{
+              "title": "☀️ Pre-market checklist",
+              "description": "□ Economic calendar checked — see #news-calendar\n□ No 8:30 AM news or FOMC today\n□ Yesterday's high/low marked on the chart\n□ Max risk today: **$200** · Max **2 trades**\n□ Entry, stop & target planned BEFORE 9:30\n□ Phone on silent until 11:30",
+              "color": 3066993
+            }]
+          }
+          EOF
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_TRADING_WEBHOOK_URL }}
