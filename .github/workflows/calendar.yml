@@ -1,6 +1,6 @@
 name: Econ calendar alerts
 
-on:
+"on":
   schedule:
     - cron: "*/5 * * * *"   # every 5 minutes
   workflow_dispatch:        # allows a manual test run from the Actions tab
