@@ -1,0 +1,31 @@
+name: Sunday journal review
+
+# Posts the weekly review prompt to Discord on Sunday mornings.
+# NOTE: cron runs on UTC. 10:00 AM EDT = 14:00 UTC. When daylight saving ends
+# (Nov 1, 2026), 10:00 AM EST = 15:00 UTC — change 14 to 15 below.
+
+"on":
+  schedule:
+    - cron: "0 14 * * 0"      # Sunday 10:00 AM Eastern (EDT)
+  workflow_dispatch:          # manual test from the Actions tab
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post review prompt to Discord
+        run: |
+          curl -s -X POST "$DISCORD_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d @- <<'EOF'
+          {
+            "username": "Trading Reminders",
+            "embeds": [{
+              "title": "📓 Weekly review",
+              "description": "Post your journal dashboard screenshot in #trade-journal.\n\nAnswer two questions:\n1️⃣ Did you follow the plan on every trade?\n2️⃣ What's ONE adjustment for next week?\n\n🟢 Green journal → buy the eval.\n🔴 Red journal → another week of sim.",
+              "color": 3447003
+            }]
+          }
+          EOF
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_JOURNAL_WEBHOOK_URL }}
