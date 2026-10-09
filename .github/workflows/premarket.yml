@@ -22,7 +22,7 @@ jobs:
             "username": "Trading Reminders",
             "embeds": [{
               "title": "☀️ Pre-market checklist",
-              "description": "□ Economic calendar checked — see #news-calendar\n□ No 8:30 AM news or FOMC today\n□ Yesterday's high/low marked on the chart\n□ Max risk today: **$200** · Max **2 trades**\n□ Entry, stop & target planned BEFORE 9:30\n□ Phone on silent until 11:30",
+              "description": "□ Economic calendar checked — see <#${{ vars.NEWS_CHANNEL_ID }}>\n□ No 8:30 AM news or FOMC today\n□ Yesterday's high/low marked on the chart\n□ Max risk today: **$200** · Max **2 trades**\n□ Entry, stop & target planned BEFORE 9:30\n□ Phone on silent until 11:30",
               "color": 3066993
             }]
           }
